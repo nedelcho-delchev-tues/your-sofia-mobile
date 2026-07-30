@@ -208,6 +208,7 @@ export function mapUpdateMessageToNewsItem(
     })),
     busStops: message.busStops,
     allLocations: getAllLocations(message),
+    createdAt: toISOStringIfValid(message.createdAt),
     finalizedAt: message.finalizedAt ? new Date(message.finalizedAt).toISOString() : undefined,
   }
 }
