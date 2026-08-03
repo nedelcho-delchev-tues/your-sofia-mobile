@@ -89,8 +89,16 @@ interface ProfileSection {
 export default function ProfileScreen() {
   const {t, i18n} = useTranslation()
   const router = useRouter()
-  const {user, isAuthenticated, isContainerAdmin, isAdmin, logout, deleteAccount, refreshUser} =
-    useAuth()
+  const {
+    user,
+    isAuthenticated,
+    isContainerAdmin,
+    isFountainAdmin,
+    isAdmin,
+    logout,
+    deleteAccount,
+    refreshUser,
+  } = useAuth()
   const {expoPushToken, registerAndSendToken} = useNotifications()
   const [isRegisteringToken, setIsRegisteringToken] = useState(false)
   const [deviceId, setDeviceId] = useState<string>('')
@@ -212,9 +220,11 @@ export default function ProfileScreen() {
             <Text style={styles.profileStatus}>
               {isContainerAdmin
                 ? t('auth.containerAdmin')
-                : isAuthenticated
-                  ? t('common.verifiedCitizen')
-                  : t('auth.notAuthenticated')}
+                : isFountainAdmin
+                  ? t('auth.fountainAdmin')
+                  : isAuthenticated
+                    ? t('common.verifiedCitizen')
+                    : t('auth.notAuthenticated')}
             </Text>
             <View style={styles.profileDetails}>
               {isAuthenticated && user?.email && (
