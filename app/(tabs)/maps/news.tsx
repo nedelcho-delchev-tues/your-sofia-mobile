@@ -11,21 +11,6 @@ import {getCategoryColor, getCategoryIcon} from '../../../lib/categories'
 import {TopicFilter} from '../../../components/TopicFilter'
 import {colors, fontSizes} from '@/styles/tokens'
 
-const NEWS_MAP_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
-
-function isRecentNewsItem(itemDate?: string): boolean {
-  if (!itemDate) {
-    return false
-  }
-
-  const timestamp = new Date(itemDate).getTime()
-  if (Number.isNaN(timestamp)) {
-    return false
-  }
-
-  return Date.now() - timestamp <= NEWS_MAP_MAX_AGE_MS
-}
-
 export default function NewsMap() {
   const {t} = useTranslation()
   const router = useRouter()
@@ -39,10 +24,16 @@ export default function NewsMap() {
   const [mapBounds, setMapBounds] = useState<MapBounds | null>(null)
   const [mapZoom, setMapZoom] = useState<number | undefined>(undefined)
   const regionDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const timespanEndGte = useMemo(() => {
+    const date = new Date()
+    date.setDate(date.getDate() - 7)
+    return date.toISOString()
+  }, [])
   const {news, loading} = useUpdates({
     categories: selectedCategories,
     bounds: mapBounds,
     zoom: mapZoom,
+    timespanEndGte,
     enabled: true,
   })
 
@@ -89,11 +80,7 @@ export default function NewsMap() {
     }
   }, [])
 
-  const newsWithLocation = news.filter((item) => {
-    const dateToCheck = item.timespanEnd ?? item.finalizedAt ?? item.createdAt
-
-    return item.location && isRecentNewsItem(dateToCheck)
-  })
+  const newsWithLocation = news.filter((item) => item.location)
 
   if (loading) {
     return (
