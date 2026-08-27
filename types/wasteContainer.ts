@@ -30,7 +30,14 @@ export interface CreateContainerInput {
 }
 
 export type ContainerState =
-  'full' | 'dirty' | 'damaged' | 'leaves' | 'maintenance' | 'bagged' | 'fallen' | 'bulkyWaste'
+  | 'full'
+  | 'dirty'
+  | 'damaged'
+  | 'leaves'
+  | 'maintenance'
+  | 'bagged'
+  | 'fallen'
+  | 'bulkyWaste'
 
 export const CONTAINER_STATES: ContainerState[] = [
   'full',

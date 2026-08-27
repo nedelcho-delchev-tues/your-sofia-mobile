@@ -31,7 +31,10 @@ export interface LocationFilterArea {
 }
 
 export type LocationFilter =
-  LocationFilterAll | LocationFilterDistrict | LocationFilterPoint | LocationFilterArea
+  | LocationFilterAll
+  | LocationFilterDistrict
+  | LocationFilterPoint
+  | LocationFilterArea
 
 export interface SubscriptionCategory {
   id: number | string
