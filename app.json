@@ -3,16 +3,22 @@
     "name": "YourSofia",
     "slug": "your-sofia",
     "version": "0.6.3",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "orientation": "portrait",
       "supportsTablet": true,
       "icon": "./assets/images/icon.png",
       "bundleIdentifier": "bg.sofia.yoursofia",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UISupportedInterfaceOrientations": [
+          "UIInterfaceOrientationPortrait"
+        ],
+        "UISupportedInterfaceOrientations~ipad": [
+          "UIInterfaceOrientationPortrait"
+        ]
       }
     },
     "android": {
